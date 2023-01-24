@@ -80,22 +80,22 @@ function getProductos() {
     var cardProductos = document.querySelector(".contenedor");
     var listaProductos = "";
 
-productos.map((d, index) => {
-    listaProductos = listaProductos +
-    `<div key="${index}" class="card" >
-         <img src="${d.foto}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">${d.nombre}</h5>
-          <p class="card-text">${d.Id}</p>
-          <h6>${d.precio}</h6>
-          <div class="tarjeta-modificar">
-            <button>-</button>
-            <p id="cant_${d.Id}">1</p>
-            <button>+</button>
-          </div>
-         <button class="btnAgregar">Agregar</button>
-        </div>
-    </div>`;
+    productos.map((d, index) => {
+        listaProductos = listaProductos +
+        `<div key="${index}" class="card" >
+            <img src="${d.foto}" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">${d.nombre}</h5>
+            <p class="card-text">${d.Id}</p>
+            <h6>${d.precio}</h6>
+            <div class="tarjeta-modificar">
+                <button>-</button>
+                <p id="cant_${d.Id}">1</p>
+                <button>+</button>
+            </div>
+            <button class="btnAgregar">Agregar</button>
+            </div>
+        </div>`;
     });
     cardProductos.innerHTML = listaProductos;
 };
