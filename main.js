@@ -97,5 +97,6 @@ function getProductos() {
             </div>
         </div>`;
     });
+    
     cardProductos.innerHTML = listaProductos;
 };
