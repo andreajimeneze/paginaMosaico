@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página con carrito</title>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/normalize.css">
+  
+
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">NOMBRE EMPRESA</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+            <a class="nav-link" href="#">Tienda</a>
+            <a class="nav-link" href="#">Nosotros</a>
+            <a class="nav-link disabled">Contacto</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  </header>
+
+  <main>
+
+    <div class="contenedor">
+      <!-- AQUÍ VAN LOS PRODUCTOS -->
+      <div key=1 class="card" >
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Nombre producto</h5>
+          <p class="card-text">Id producto</p>
+          <h6>Precio</h6>
+          <div class="tarjeta-modificar">
+            <button>-</button>
+            <p id="cant_${d.id}">1</p>
+            <button>+</button>
+          </div>
+          <button class="btnX">Agregar</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+
+  </footer>
+
+  <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/jquery-3.6.3.min.js"></script>
+  <script src="/main.js"></script>
+</body>
+
+</html>
