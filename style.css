@@ -1,0 +1,130 @@
+main {
+    padding: 1vw;
+    display: flex;
+    justify-content: end;
+    align-items: flex-start;
+}
+
+/* Header */
+
+#navbarNavAltMarkup.collapse.navbar-collapse {
+    display: flex;
+    justify-content: space-between;
+}
+div.navbar-nav {
+    padding-left: 4vh;
+    padding-right: 4vh;
+    font-size: 1.3em;
+}
+
+a.nav-link {
+    padding-right: 10vh !important;
+}
+
+a.nav-link:hover {
+    color: rgb(4, 4, 121);
+    font-weight: bold;
+}
+/* Card Productos */
+.contenedor {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: auto;
+    gap:10px;
+}
+
+.card {
+    border: solid 1px gray;
+    border-radius: 2%;
+    padding-bottom: 2vw;
+    width: 30vw;
+    height: max-content;
+}
+
+img.imgPdto {
+    height: 50vh;
+    object-fit: cover;
+    padding: 1.5vh;
+    border-radius: 5%;
+}
+
+.btnAgregar {
+    padding: 1vw;
+    border: solid 1px gray;
+    border-radius: 10%;
+    margin: 0vw 1vw;
+}
+
+button.btnAdd {
+    padding: 1vw;
+    border: solid 1px gray;
+    border-radius: 10%;
+    margin: 0vw 1vw;
+}
+
+div.agregarCarro {
+    display: flex;
+    justify-content: center;
+}
+
+.d-inline-flex {
+    padding-left:10px;
+    padding-right: 10px;
+}
+
+/* carro de compras */
+.offcanvas.offcanvas-end.show {
+    width: 50%;
+}
+
+table {
+    margin-bottom: 2vw;
+    border: solid 1px grey;
+}
+
+table td {
+    padding: 2vw 0.5vw;
+}
+.filaTabla tr {
+    padding: 2vw;
+}
+
+.offcanvas-footer {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5vw;
+}
+
+.preciosCarrito {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1vw;
+}
+
+
+@media screen and (max-width: 768px){
+    /* .contenedor {
+        display: grid;
+        padding: auto;
+        gap:5px;
+    } */
+    .card {
+        border: solid 1px gray;
+        border-radius: 2%;
+        padding-bottom: 2vw;
+        width: 40vw;
+        height: max-content;
+    }
+    
+}
+
+@media screen and (max-width: 520px){
+    .card {
+        border: solid 1px gray;
+        border-radius: 2%;
+        padding-bottom: 2vw;
+        width: 200vw;
+        height: max-content;
+    }
+    
+}

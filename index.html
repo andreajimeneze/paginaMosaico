@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página con carrito</title>
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./normalize.css">
+  <link rel="stylesheet" href="./style.css">
+
+
+</head>
+
+<body onLoad="getProductos()">
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"><img src="./assets/img/Logo_Pez_Mosaico.png" alt="Pez Mosaico"
+            style="height:25vh"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+            <a class="nav-link">Tienda</a>
+            <a class="nav-link" href="#">Nosotros</a>
+            <a class="nav-link" href="#">Contacto</a>
+            </div>
+            <div>
+            <a class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+              aria-controls="offcanvasRight"><img src="./assets/img/shopping-bag-ui-svgrepo-com.svg" alt=""
+                id="imgCarrito"></a>
+              </div>
+          </div>
+        </div>
+      </div>
+
+    </nav>
+
+  </header>
+
+  <main>
+
+    <!-- AQUÍ SE CARGAN LOS PRODUCTOS -->
+    <div class="row row-cols-1 row-cols-md-3 g-4 contenedor"></div>
+
+
+    <!-- AQUÍ SE CARGA EL CARRITO DE COMPRAS -->
+    <!-- <button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+      aria-controls="offcanvasRight"><img src="./assets/img/shopping-bag-ui-svgrepo-com.svg" alt=""
+        id="imgCarrito"></button> -->
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">Carro de Compras</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <table class="datosProductosAComprar">
+          <tr class="filaTabla">
+            <td>Código Producto</td>
+            <td>Imagen Producto</td>
+            <td>Título Producto</td>
+            <td>Precio unitario</td>
+            <td>
+              <div class="d-flex column justify-content-center" class="tarjeta-modificar">
+                <button class="btnAgregar" value=btn>-</button>
+                <p class="mb-0 mt-2 align-self:center" id="cantX_${d.Id}">1</p>
+                <button class="btnAgregar" value=btn>+</button>
+              </div>
+            </td>
+            <td>Subtotal ítem</td>
+            <td><a></a><img src="./assets/img/trash-svgrepo-com.svg" alt=""></a></td>
+          </tr>
+        </table>
+        <div>
+          <div class="preciosCarrito">Subtotal Neto
+            <span>$ 300</span>
+          </div>
+          <div class="preciosCarrito">IVA
+            <span>$ 57</span>
+          </div>
+          <div class="preciosCarrito">Total bruto
+            <span>$ 357</span>
+          </div>
+          <div class="preciosCarrito">Costo Envío
+            <span>$ 50</span>
+          </div>
+          <div class="preciosCarrito">Total a pagar
+            <span>$ 407</span>
+          </div>
+        </div>
+      </div>
+      <div class="offcanvas-footer">
+        <button class="btn btn-primary" type="button">Comprar</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+
+  </footer>
+
+  <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="./jquery-3.6.3.min.js"></script>
+  <script src="./main.js"></script>
+</body>
+
+</html>
