@@ -73,8 +73,28 @@ div.agregarCarro {
 }
 
 /* carro de compras */
+
 .offcanvas.offcanvas-end.show {
     width: 50%;
+}
+
+.contenedor-Cart {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-items: center;
+    align-items:initial;
+    text-align: center;
+}
+
+div.cart-notification {
+    border-radius: 50%;
+    background-color: blue;
+    color: antiquewhite;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    display: none; 
 }
 
 table {
@@ -127,4 +147,18 @@ table td {
         height: max-content;
     }
     
+}
+
+/* Carrito */
+#fotoCarrito {
+    height: 80px;
+    object-fit:cover;
+}
+    
+button.btnAddCarro {
+    height: 3vh;
+    padding: 1vw;
+    border: solid 1px gray;
+    border-radius: 10%;
+    margin: 0vw 1vw;
 }

@@ -30,7 +30,8 @@
             <a class="nav-link" href="#">Nosotros</a>
             <a class="nav-link" href="#">Contacto</a>
             </div>
-            <div>
+            <div class="contenedor-Cart">
+            <div class="cart-notification" value="tonto">2</div>
             <a class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
               aria-controls="offcanvasRight"><img src="./assets/img/shopping-bag-ui-svgrepo-com.svg" alt=""
                 id="imgCarrito"></a>
@@ -54,16 +55,16 @@
       aria-controls="offcanvasRight"><img src="./assets/img/shopping-bag-ui-svgrepo-com.svg" alt=""
         id="imgCarrito"></button> -->
 
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="carritoCompras offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasRightLabel">Carro de Compras</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close"data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <table class="datosProductosAComprar">
           <tr class="filaTabla">
             <td>Código Producto</td>
-            <td>Imagen Producto</td>
+            <td><img src="" alt=""></td>
             <td>Título Producto</td>
             <td>Precio unitario</td>
             <td>
@@ -107,7 +108,7 @@
 
   <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="./jquery-3.6.3.min.js"></script>
-  <script src="./main.js"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>

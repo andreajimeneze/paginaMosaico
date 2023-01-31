@@ -1,6 +1,6 @@
 // Data productos
 
-let productos = [
+const productos = [
     {
         Id: 1,
         nombre: "Bandeja mosaico",
@@ -74,87 +74,110 @@ let productos = [
 
 
 // Carga de productos en index.html
+var cardProductos = document.querySelector(".contenedor");
+var listaProductos = "";
+cardProductos.classList.add("d-flex", "wrap", "p-2");
 
 function getProductos() {
-    var cardProductos = document.querySelector(".contenedor");
-    var listaProductos = "";
-    cardProductos.classList.add("d-flex", "wrap", "p-2");
-    
 
     productos.map((d, index) => {
         listaProductos = listaProductos +
             `<div key=${index} class="row row-cols-2 row-cols-md-3 g-4 cardPdto">
-        <div class="col">
-          <div class="card h-100">
-            <img src="${d.foto}" class="card-img-top imgPdto" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">${d.nombre}</h5>
-              <p class="card-text">Código:${d.Id}</p>
-              <p class="card-text">Precio $: ${d.precio}</p>
+            <div class="col">
+            <div class="card h-100">
+                <img src="${d.foto}" class="card-img-top imgPdto" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">${d.nombre}</h5>
+                <p class="card-text">Código:${d.Id}</p>
+                <p class="card-text">Precio $: ${d.precio}</p>
+                </div>
+                <div class="d-flex column justify-content-center" class="tarjeta-modificar">
+                <button class="btnAgregar" value=btn onclick="modificarCantidad(-1, ${d.Id})">-</button>
+                <p class="mb-0 mt-2 align-self:center" id="cantX_${d.Id}" >1</p>
+                <button class="btnAgregar" value=btn onclick="modificarCantidad(+1, ${d.Id})">+</button>
             </div>
-            <div class="d-flex column justify-content-center" class="tarjeta-modificar">
-              <button class="btnAgregar" value=btn onclick="modificarCantidad(-1, ${d.Id})">-</button>
-              <p class="mb-0 mt-2 align-self:center" id="cantX_${d.Id}" >1</p>
-              <button class="btnAgregar" value=btn onclick="modificarCantidad(+1, ${d.Id})">+</button>
-          </div>
-          <div class="agregarCarro" class="d-flex">
-             <button class="btnAdd_${d.Id}" style="padding: 1vw; border: solid 1px gray;
-             border-radius: 10%; margin: 1vw 1vw; width:8vw" onclick = "agregarAlCarro()">Agregar</button>
-          </div>
-          </div>
-        </div>
-      </div>`;
+            <div class="agregarCarro" class="d-flex">
+                <button class="btnAdd" style="padding: 1vw; border: solid 1px gray;
+                border-radius: 10%; margin: 1vw 1vw; width:8vw" value=btnCarro key=nada id="btnAdd_${d.Id}" onclick="agregarProducto(${d.Id})">Agregar</button>
+            </div>
+            </div>
+            </div>
+        </div>`;
     });
     cardProductos.innerHTML = listaProductos;
+
 };
 
 // Función para modificar cantidad de productos en cada card.
-function modificarCantidad (btn, Id) {
-    let cantidadCarrito = $(`#cantX_${Id}`).text() * 1;
-    let carrito = document.querySelector(`#cantX_${Id}`).textContent * 1;
-    console.dir(carrito);
 
-carrito = carrito + btn
-    
-if (carrito>0) {
-        
-        // console.log(carrito);
-        // $(`#cantX_${Id}`).text(carrito);
+function modificarCantidad(btn, Id) {
+    var cantidadCarrito = Number(document.querySelector(`#cantX_${Id}`).textContent);
 
-        document.querySelector(`#cantX_${Id}`).textContent = carrito;
+    cantidadCarrito = cantidadCarrito + btn;
+    console.log(cantidadCarrito);
+
+    if (cantidadCarrito > 0) {
+
+        document.querySelector(`#cantX_${Id}`).textContent = cantidadCarrito;
 
     } else {
-        carrito = 1  
-        // $(`#cantX_${Id}`).text(carrito);
+        cantidadCarrito = 1;
     }
+};
+
+function modificarCantidadCarrito(btn, Id) {
+    modificarCantidad(btn, Id)
 }
 
-// Creación de carro de compras
 
-function agregarAlCarro() {
-    var carroCompras = [];
+// Agregar cantidad productos al carro.
+function agregarProducto(Id) {
+    let datosProductosAComprar = document.querySelector(".datosProductosAComprar");
+    // console.log(datosProductosAComprar);
+    var dataCanasta = [];
+    // console.log(dataCanasta);
+    var renderCarrito = "";
+    var btnAdd = document.getElementById(`btnAdd_${Id}`);
+    console.dir(btnAdd);
 
-    carroCompras.push(productos);
+    dataCanasta.push(productos.find(d => d.Id == Id));
+    // console.dir(dataCanasta);
 
-    carroCompras.innerHTML = document.querySelector(".datosProductosAComprar");
+    dataCanasta.map((d, index) => {
 
-
-productos.map((d, index) => {
-    listaCarro = listaCarro +
-`<table class="datosProductosAComprar">
-<tr class="filaTabla">
-<td>Código ${d.Id}</td>
-<td>${d.foto}</td>
-<td>${d.nombre}</td>
-<td>$ ${d.precio}</td>
-<td><div class="d-flex column justify-content-center" class="tarjeta-modificar">
-    <button class="btnAgregar" value=btn onclick="modificarCantidad(-1, ${d.Id})">-</button>
-    <p class="mb-0 mt-2 align-self:center" id="cantX_${d.Id}">1</p>
-    <button class="btnAgregar" value=btn onclick="modificarCantidad(1, ${d.Id})">+</button>
-  </div></td>
-<td>Subtotal ítem</td>
-<td><a></a><img src="./assets/img/trash-svgrepo-com.svg" alt=""></a></td>
-</tr>
-</table>`
-})
+        renderCarrito = renderCarrito +
+            `<tr "class="filaTabla">
+                    <td>Código ${d.Id}</td>
+                    <td ><img src="${d.foto}" alt="" id="fotoCarrito"></td>
+                    <td>${d.nombre}</td>
+                    <td>$ ${d.precio}</td>
+                    <td><div class="d-flex column justify-content-center" id="tarjeta-modificarCarro">
+                        <button class="btnAddCarro" value=btn onclick="modificarCantidad(-1, ${d.Id})">-</button>
+                        <p class="mb-0 mt-2 align-self:center" id="cantX_${d.Id}">1</p>
+                        <button class="btnAddCarro" value=btn onclick="modificarCantidad(1, ${d.Id})">+</button></td>
+                    <td>Subtotal ítem</td>
+                    <td><a></a><img src="./assets/img/trash-svgrepo-com.svg" alt=""></a></td>
+                </tr>`;
+    });
+    datosProductosAComprar.innerHTML = renderCarrito;
+    console.log(renderCarrito);
+    console.log(datosProductosAComprar);
 };
+
+
+
+`<div class="preciosCarrito">Subtotal Neto
+<span>$ 300</span>
+</div>
+<div class="preciosCarrito">IVA
+<span>$ 57</span>
+</div>
+<div class="preciosCarrito">Total bruto
+<span>$ 357</span>
+</div>
+<div class="preciosCarrito">Costo Envío
+<span>$ 50</span>
+</div>
+<div class="preciosCarrito">Total a pagar
+<span>$ 407</span>
+</div>`
