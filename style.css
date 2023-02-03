@@ -26,9 +26,11 @@ a.nav-link:hover {
     font-weight: bold;
 }
 /* Card Productos */
-.contenedor {
+row.row-cols-1-row-cols-sm-2.row-cols-3.row-cols-md-4.g-4 {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    grid-area: span;
+    margin-left: 0.4vw;
     padding: auto;
     gap:10px;
 }
@@ -36,13 +38,13 @@ a.nav-link:hover {
 .card {
     border: solid 1px gray;
     border-radius: 2%;
-    padding-bottom: 2vw;
-    width: 30vw;
-    height: max-content;
+    padding-bottom: 1vh;
+    width: 22vw;
+    height: 80vh;
 }
 
 img.imgPdto {
-    height: 50vh;
+    height: 40vh;
     object-fit: cover;
     padding: 1.5vh;
     border-radius: 5%;
@@ -60,6 +62,11 @@ button.btnAdd {
     border: solid 1px gray;
     border-radius: 10%;
     margin: 0vw 1vw;
+}
+
+button.btnAdd:hover {
+    background-color: rgb(4, 4, 121);
+    color:antiquewhite;
 }
 
 div.agregarCarro {
@@ -105,6 +112,11 @@ table {
 table td {
     padding: 2vw 0.5vw;
 }
+
+.datosProductosAComprar {
+    width: 100%;
+}
+
 .filaTabla tr {
     padding: 2vw;
 }
@@ -121,32 +133,55 @@ table td {
     padding-top: 1vw;
 }
 
+button.btnAddCanasta {
+    border: solid 1px gray;
+    border-radius: 10%;
+    text-size-adjust:initial;
+} 
 
-@media screen and (max-width: 768px){
-    /* .contenedor {
+p#cantCanasta.mb-0.mt-2.align-self\:center {
+    margin-left: 10px !important;
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 820px){
+    .row.row-cols-2.row-cols-md-4.g-5 {
         display: grid;
+        grid-template-columns: 1fr 1fr;
         padding: auto;
         gap:5px;
-    } */
+    }
     .card {
         border: solid 1px gray;
         border-radius: 2%;
         padding-bottom: 2vw;
-        width: 40vw;
+        width: 45vw;
         height: max-content;
     }
     
 }
 
-@media screen and (max-width: 520px){
+@media screen and (max-width: 420px){
+    .row.row-cols-1.row-cols-md-2.g-4 {
+        display: grid;
+        grid-template-columns: 1fr !important;
+        padding: 0px 7px;
+        margin-top: 0px;
+        margin-right: 0px;
+        gap:5px;
+    }
     .card {
         border: solid 1px gray;
         border-radius: 2%;
         padding-bottom: 2vw;
-        width: 200vw;
+        margin-right: 20px;
+        width: 85vw;
         height: max-content;
+    }    
+
+    button.btnAdd {
+        width: 20vw !important;
     }
-    
 }
 
 /* Carrito */

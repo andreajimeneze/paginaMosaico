@@ -109,42 +109,42 @@ function getProductos() {
 };
 
 // Función para modificar cantidad de productos en cada card.
-
+// var cantidadCarrito ="";
 function modificarCantidad(btn, Id) {
     var cantidadCarrito = Number(document.querySelector(`#cantX_${Id}`).textContent);
-
     cantidadCarrito = cantidadCarrito + btn;
-    console.log(cantidadCarrito);
 
     if (cantidadCarrito > 0) {
-
         document.querySelector(`#cantX_${Id}`).textContent = cantidadCarrito;
-
     } else {
         cantidadCarrito = 1;
     }
 };
 
-function modificarCantidadCarrito(btn, Id) {
-    modificarCantidad(btn, Id)
+
+function variarCantidad(Id) {
+    let cantidadCanasta = document.querySelector(`#cantCanasta_${d.Id}`);
+    cantidadCanasta = cantidadCanasta + cantidadCarrito;
+    console.log(cantidadCanasta);
 }
 
-
 // Agregar cantidad productos al carro.
+var dataCanasta = [];
 function agregarProducto(Id) {
     let datosProductosAComprar = document.querySelector(".datosProductosAComprar");
     // console.log(datosProductosAComprar);
-    var dataCanasta = [];
+
     // console.log(dataCanasta);
     var renderCarrito = "";
-    var btnAdd = document.getElementById(`btnAdd_${Id}`);
-    console.dir(btnAdd);
+    let pdto = productos.find(d => d.Id == Id)
+    let nuevoPdto = pdto;
 
-    dataCanasta.push(productos.find(d => d.Id == Id));
-    // console.dir(dataCanasta);
+    nuevoPdto = dataCanasta.push(pdto);
+    console.dir(dataCanasta);
+
 
     dataCanasta.map((d, index) => {
-
+        var cantidad = Number(document.querySelector(`#cantX_${d.Id}`).textContent);
         renderCarrito = renderCarrito +
             `<tr "class="filaTabla">
                     <td>Código ${d.Id}</td>
@@ -152,16 +152,15 @@ function agregarProducto(Id) {
                     <td>${d.nombre}</td>
                     <td>$ ${d.precio}</td>
                     <td><div class="d-flex column justify-content-center" id="tarjeta-modificarCarro">
-                        <button class="btnAddCarro" value=btn onclick="modificarCantidad(-1, ${d.Id})">-</button>
-                        <p class="mb-0 mt-2 align-self:center" id="cantX_${d.Id}">1</p>
-                        <button class="btnAddCarro" value=btn onclick="modificarCantidad(1, ${d.Id})">+</button></td>
-                    <td>Subtotal ítem</td>
+                        <button class="btnAddCarro" value=btn id="btnCarro_${d.Id}onclick="variarCantidad(-1, ${d.Id})">-</button>
+                        <p class="mb-0 mt-2 align-self:center" id="cantCanasta_${d.Id}">${cantidad}</p>
+                        <button class="btnAddCarro" value=btn id="btnCarro_${d.Id}onclick="variarCantidad(1, ${d.Id})">+</button></td>
+                    <td>$ ${d.precio * cantidad}</td>
                     <td><a></a><img src="./assets/img/trash-svgrepo-com.svg" alt=""></a></td>
                 </tr>`;
     });
     datosProductosAComprar.innerHTML = renderCarrito;
-    console.log(renderCarrito);
-    console.log(datosProductosAComprar);
+
 };
 
 
