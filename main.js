@@ -131,17 +131,19 @@ function variarCantidad(btnCarro, Id) {
     } else {
         cantidadCarrito = 1;
     }
-    console.log(cantidadCanasta);
 };
 
 // Agregar cantidad productos al carro.
 var dataCanasta = [];
+var precios = [];
              
-    function actualizarCanasta(imgPdto) {
+function actualizarCanasta(imgPdto) {
         let datosProductosAComprar = document.querySelector(".datosProductosAComprar");
         var renderCarrito = "";
+        
     dataCanasta.map((d, Id) => {
         var cantidad = Number(document.querySelector(`#cantX_${d.Id}`).textContent);
+        
         renderCarrito = renderCarrito +
             `<tr "class="filaTabla" onchange="calcularTotales()">
                     <td>Código ${d.Id}</td>
@@ -152,78 +154,96 @@ var dataCanasta = [];
                         <button class="btnAddCarro" value=btnCanasta id="btnCarro_${d.Id} onclick="variarCantidad(-1, ${d.Id})">-</button>
                         <p class="mb-0 mt-0 align-self:center" id="cantCanasta_${d.Id}">${cantidad}</p>
                         <button class="btnAddCarro" value=btnCanasta id="btnCarro_${d.Id} onclick="variarCantidad(1, ${d.Id})">+</button></td>
-                    <td>$ ${d.precio * cantidad}</td>
+                    <td class="subtotalPdto_${d.Id}"> ${d.precio * cantidad}</td>
                     <td><a></a><img src="./assets/img/trash-svgrepo-com.svg" alt="" onclick="removePdto(${Id})"></a></td>
-                </tr>`;           
+                </tr>`;       
     });
-    datosProductosAComprar.innerHTML = renderCarrito;
+    datosProductosAComprar.innerHTML = renderCarrito;    
 };
 
 function agregarProducto(Id) {
-   
+    let cant = Number(document.querySelector(`#cantX_${Id}`).textContent);
+    console.log(cant);
     let pdto = productos.find(d => d.Id == Id)
     let nuevoPdto = pdto;
-
+    precios.push(pdto.precio * cant);
+    console.log(precios);
     nuevoPdto = dataCanasta.push(pdto);
     actualizarCanasta();
-    console.log(dataCanasta);
-
+    calcularTotales()
+console.log(precios);
 };
 
 // Cálculo de valores finales de la compra
 function calcularTotales() {
-    var valores = document.querySelector(".valoresTotales").textContent;
+    var calculoFinal = document.querySelector(".valoresTotales");
+            
     var valoresFinales = "";
-    console.log(valoresFinales);
     var subtotalNeto = 0;
     const porcIva = 0.19;
     var iva = 0; 
-
-    iva = subtotalNeto * porcIva;
-
-    dataCanasta.map((d, Id) => {
-        let cantidad = Number(document.querySelector(`#cantCanasta_${d.Id}`).textContent);
-        var preciosPdto = Number(document.querySelector(`#preciosPdto_${d.Id}`).textContent);
     
-    subtotalNeto = `${preciosPdto * cantidad}`;
-    console.log(subtotalNeto);
-
+    let totalCarrito = 0;
+    if (dataCanasta == 0) {
+       totalCarrito = 0;
+       precios = [];
+    } else {
+        precios.forEach(d => 
+            totalCarrito += d
+        ) 
+    
+        subtotalNeto += totalCarrito;
+       iva = Math.round(subtotalNeto / porcIva/ 100);
+    
          valoresFinales = valoresFinales +
             `<div class="preciosCarrito" >Subtotal Neto
-            <span>$ ${subtotalNeto}</span>
+            <span>$ ${totalCarrito - iva}</span>
             </div>
             <div class="preciosCarrito">IVA
-            <span>$ "${iva}"</span>
+            <span>$ ${iva}</span>
             </div>
             <div class="preciosCarrito">Total a pagar
-            <span>$ ${subtotalNeto + iva}</span>
+            <span>$ ${totalCarrito}</span>
             </div>`;           
-            console.log(valoresFinales);
-    })
-    if (subtotalNeto > 0) {
-        document.querySelector(".valoresTotales").innerHTML =valoresFinales;
-        console.log(valoresFinales);
-        }             
-        actualizarCanasta();     
+   
+    
+     calculoFinal.innerHTML = valoresFinales;
+    actualizarCanasta();     
+}
 };
 
 // Remover producto de la canasta
-function removePdto(Id) {
-    dataCanasta.find(d => d.Id == Id);
-    let pdtoRemove = dataCanasta.splice(Id, 1); 
+function removePdto(index) {
+    dataCanasta.find(d => d.index == index);
+    let pdtoRemove = dataCanasta.splice(index, 1); 
     
     dataCanasta.filter(d => {
-        d.iId !== pdtoRemove; 
+        d.index !== pdtoRemove; 
     })
+
+    precios.find(d => d.index == index);
+    let precioRemove = precios.splice(index,1);
+    precios.filter(index => {
+        index !== precioRemove;
+        console.log(precios);
+    })
+
+    if (dataCanasta == 0) {
+        precios.length = 0;
+    }
+    console.log(precios);
     actualizarCanasta();  
+    calcularTotales()
 };    
 
 // Vaciar carro de compras
 function vaciarCarrito() {
     if (dataCanasta.length > 0) {
             dataCanasta.length = 0;
+            precios.length = 0;
     }
-actualizarCanasta();     
+actualizarCanasta(); 
+calcularTotales()    
 };
         
 
