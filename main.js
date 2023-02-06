@@ -105,11 +105,9 @@ function getProductos() {
         </div>`;
     });
     cardProductos.innerHTML = listaProductos;
-
 };
 
 // Función para modificar cantidad de productos en cada card.
-// var cantidadCarrito ="";
 function modificarCantidad(btn, Id) {
     var cantidadCarrito = Number(document.querySelector(`#cantX_${Id}`).textContent);
     cantidadCarrito = cantidadCarrito + btn;
@@ -121,62 +119,113 @@ function modificarCantidad(btn, Id) {
     }
 };
 
-
-function variarCantidad(Id) {
-    let cantidadCanasta = document.querySelector(`#cantCanasta_${d.Id}`);
-    cantidadCanasta = cantidadCanasta + cantidadCarrito;
+// Función para modificar cantidad en canasta de compras
+function variarCantidad(btnCarro, Id) {
+    let cantidadCanasta = Number(document.querySelector(`#cantCanasta_${Id}`).textContent);
+    
     console.log(cantidadCanasta);
-}
+    cantidadCanasta = cantidadCanasta + btnCarro;
+        
+    if (cantidadCarrito > 0) {
+        document.querySelector(`#cantCanasta_${Id}`).textContent = cantidadCanasta;
+    } else {
+        cantidadCarrito = 1;
+    }
+    console.log(cantidadCanasta);
+};
 
 // Agregar cantidad productos al carro.
 var dataCanasta = [];
-function agregarProducto(Id) {
-    let datosProductosAComprar = document.querySelector(".datosProductosAComprar");
-    // console.log(datosProductosAComprar);
+             
+    function actualizarCanasta(imgPdto) {
+        let datosProductosAComprar = document.querySelector(".datosProductosAComprar");
+        var renderCarrito = "";
+    dataCanasta.map((d, Id) => {
+        var cantidad = Number(document.querySelector(`#cantX_${d.Id}`).textContent);
+        renderCarrito = renderCarrito +
+            `<tr "class="filaTabla" onchange="calcularTotales()">
+                    <td>Código ${d.Id}</td>
+                    <td ><img src="${d.foto}" alt="" id="fotoCarrito"></td>
+                    <td>${d.nombre}</td>
+                    <td id="precioPdto_${d.Id}">$ ${d.precio}</td>
+                    <td><div class="d-flex column justify-content-center" id="tarjeta-modificarCarro">
+                        <button class="btnAddCarro" value=btnCanasta id="btnCarro_${d.Id} onclick="variarCantidad(-1, ${d.Id})">-</button>
+                        <p class="mb-0 mt-0 align-self:center" id="cantCanasta_${d.Id}">${cantidad}</p>
+                        <button class="btnAddCarro" value=btnCanasta id="btnCarro_${d.Id} onclick="variarCantidad(1, ${d.Id})">+</button></td>
+                    <td>$ ${d.precio * cantidad}</td>
+                    <td><a></a><img src="./assets/img/trash-svgrepo-com.svg" alt="" onclick="removePdto(${Id})"></a></td>
+                </tr>`;           
+    });
+    datosProductosAComprar.innerHTML = renderCarrito;
+};
 
-    // console.log(dataCanasta);
-    var renderCarrito = "";
+function agregarProducto(Id) {
+   
     let pdto = productos.find(d => d.Id == Id)
     let nuevoPdto = pdto;
 
     nuevoPdto = dataCanasta.push(pdto);
-    console.dir(dataCanasta);
-
-
-    dataCanasta.map((d, index) => {
-        var cantidad = Number(document.querySelector(`#cantX_${d.Id}`).textContent);
-        renderCarrito = renderCarrito +
-            `<tr "class="filaTabla">
-                    <td>Código ${d.Id}</td>
-                    <td ><img src="${d.foto}" alt="" id="fotoCarrito"></td>
-                    <td>${d.nombre}</td>
-                    <td>$ ${d.precio}</td>
-                    <td><div class="d-flex column justify-content-center" id="tarjeta-modificarCarro">
-                        <button class="btnAddCarro" value=btn id="btnCarro_${d.Id}onclick="variarCantidad(-1, ${d.Id})">-</button>
-                        <p class="mb-0 mt-2 align-self:center" id="cantCanasta_${d.Id}">${cantidad}</p>
-                        <button class="btnAddCarro" value=btn id="btnCarro_${d.Id}onclick="variarCantidad(1, ${d.Id})">+</button></td>
-                    <td>$ ${d.precio * cantidad}</td>
-                    <td><a></a><img src="./assets/img/trash-svgrepo-com.svg" alt=""></a></td>
-                </tr>`;
-    });
-    datosProductosAComprar.innerHTML = renderCarrito;
+    actualizarCanasta();
+    console.log(dataCanasta);
 
 };
 
+// Cálculo de valores finales de la compra
+function calcularTotales() {
+    var valores = document.querySelector(".valoresTotales").textContent;
+    var valoresFinales = "";
+    console.log(valoresFinales);
+    var subtotalNeto = 0;
+    const porcIva = 0.19;
+    var iva = 0; 
 
+    iva = subtotalNeto * porcIva;
 
-`<div class="preciosCarrito">Subtotal Neto
-<span>$ 300</span>
-</div>
-<div class="preciosCarrito">IVA
-<span>$ 57</span>
-</div>
-<div class="preciosCarrito">Total bruto
-<span>$ 357</span>
-</div>
-<div class="preciosCarrito">Costo Envío
-<span>$ 50</span>
-</div>
-<div class="preciosCarrito">Total a pagar
-<span>$ 407</span>
-</div>`
+    dataCanasta.map((d, Id) => {
+        let cantidad = Number(document.querySelector(`#cantCanasta_${d.Id}`).textContent);
+        var preciosPdto = Number(document.querySelector(`#preciosPdto_${d.Id}`).textContent);
+    
+    subtotalNeto = `${preciosPdto * cantidad}`;
+    console.log(subtotalNeto);
+
+         valoresFinales = valoresFinales +
+            `<div class="preciosCarrito" >Subtotal Neto
+            <span>$ ${subtotalNeto}</span>
+            </div>
+            <div class="preciosCarrito">IVA
+            <span>$ "${iva}"</span>
+            </div>
+            <div class="preciosCarrito">Total a pagar
+            <span>$ ${subtotalNeto + iva}</span>
+            </div>`;           
+            console.log(valoresFinales);
+    })
+    if (subtotalNeto > 0) {
+        document.querySelector(".valoresTotales").innerHTML =valoresFinales;
+        console.log(valoresFinales);
+        }             
+        actualizarCanasta();     
+};
+
+// Remover producto de la canasta
+function removePdto(Id) {
+    dataCanasta.find(d => d.Id == Id);
+    let pdtoRemove = dataCanasta.splice(Id, 1); 
+    
+    dataCanasta.filter(d => {
+        d.iId !== pdtoRemove; 
+    })
+    actualizarCanasta();  
+};    
+
+// Vaciar carro de compras
+function vaciarCarrito() {
+    if (dataCanasta.length > 0) {
+            dataCanasta.length = 0;
+    }
+actualizarCanasta();     
+};
+        
+
+       
+    

@@ -13,7 +13,7 @@
 
 </head>
 
-<body onLoad="getProductos()">
+<body onload="getProductos()">
   <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
@@ -33,8 +33,7 @@
             <div class="contenedor-Cart">
             <div class="cart-notification" value="tonto">2</div>
             <a class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-              aria-controls="offcanvasRight"><img src="./assets/img/shopping-bag-ui-svgrepo-com.svg" alt=""
-                id="imgCarrito"></a>
+              aria-controls="offcanvasRight"><img src="./assets/img/shopping-bag-ui-svgrepo-com.svg" alt="" id="imgCarrito" height="50px"></a>
               </div>
           </div>
         </div>
@@ -44,59 +43,26 @@
 
   </header>
 
-  <main>
-
+  <main >
+     
     <!-- AQUÍ SE CARGAN LOS PRODUCTOS -->
     <div class="row row-cols-1 row-cols-md-4 g-4 contenedor"></div>
 
 
     <!-- AQUÍ SE CARGA EL CARRITO DE COMPRAS -->
-    <!-- <button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-      aria-controls="offcanvasRight"><img src="./assets/img/shopping-bag-ui-svgrepo-com.svg" alt=""
-        id="imgCarrito"></button> -->
-
-    <div class="carritoCompras offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+       <div class="carritoCompras offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasRightLabel">Carro de Compras</h5>
         <button type="button" class="btn-close"data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <table class="datosProductosAComprar">
-          <tr class="filaTabla">
-            <td>Código Producto</td>
-            <td><img src="" alt=""></td>
-            <td>Título Producto</td>
-            <td>Precio unitario</td>
-            <td>
-              <div class="d-flex column justify-content-center" class="tarjeta-modificar">
-                <button class="btnAgregar" value=btn>-</button>
-                <p class="mb-0 mt-2 align-self:center" id="cantX_${d.Id}">1</p>
-                <button class="btnAgregar" value=btn>+</button>
-              </div>
-            </td>
-            <td>Subtotal ítem</td>
-            <td><a></a><img src="./assets/img/trash-svgrepo-com.svg" alt=""></a></td>
-          </tr>
-        </table>
-        <div>
-          <div class="preciosCarrito">Subtotal Neto
-            <span>$ 300</span>
-          </div>
-          <div class="preciosCarrito">IVA
-            <span>$ 57</span>
-          </div>
-          <div class="preciosCarrito">Total bruto
-            <span>$ 357</span>
-          </div>
-          <div class="preciosCarrito">Costo Envío
-            <span>$ 50</span>
-          </div>
-          <div class="preciosCarrito">Total a pagar
-            <span>$ 407</span>
-          </div>
-        </div>
+        <!-- Aquí van los productos en el carrito -->
+        <table class="datosProductosAComprar"></table>
+        <!-- Aquí van los valores finales del carrito -->
+        <div class="valoresTotales"></div>
       </div>
       <div class="offcanvas-footer">
+        <button class="btn btn-primary" type="button" onclick="vaciarCarrito()">Vaciar Carrito</button>
         <button class="btn btn-primary" type="button">Comprar</button>
       </div>
     </div>
