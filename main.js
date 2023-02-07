@@ -120,30 +120,30 @@ function modificarCantidad(btn, Id) {
 };
 
 // Función para modificar cantidad en canasta de compras
-function variarCantidad(btnCarro, Id) {
+
+function variarCantidad(btnCanasta, Id) {
     let cantidadCanasta = Number(document.querySelector(`#cantCanasta_${Id}`).textContent);
-    
-    console.log(cantidadCanasta);
-    cantidadCanasta = cantidadCanasta + btnCarro;
-        
-    if (cantidadCarrito > 0) {
-        document.querySelector(`#cantCanasta_${Id}`).textContent = cantidadCanasta;
-    } else {
-        cantidadCarrito = 1;
-    }
+    let cantidadActual = ParseInt(cantidadCanasta.textContent);
+    let nuevaCantidad = cantidadActual + btnCanasta;
+
+    if (nuevaCantidad >= 1) {
+       cantidadActual.innerHTML = nuevaCantidad; 
+    } 
 };
+
 
 // Agregar cantidad productos al carro.
 var dataCanasta = [];
 var precios = [];
              
-function actualizarCanasta(imgPdto) {
+function actualizarCanasta() {
         let datosProductosAComprar = document.querySelector(".datosProductosAComprar");
         var renderCarrito = "";
         
     dataCanasta.map((d, Id) => {
         var cantidad = Number(document.querySelector(`#cantX_${d.Id}`).textContent);
         
+
         renderCarrito = renderCarrito +
             `<tr "class="filaTabla" onchange="calcularTotales()">
                     <td>Código ${d.Id}</td>
@@ -161,6 +161,7 @@ function actualizarCanasta(imgPdto) {
     datosProductosAComprar.innerHTML = renderCarrito;    
 };
 
+
 function agregarProducto(Id) {
     let cant = Number(document.querySelector(`#cantX_${Id}`).textContent);
     console.log(cant);
@@ -171,7 +172,6 @@ function agregarProducto(Id) {
     nuevoPdto = dataCanasta.push(pdto);
     actualizarCanasta();
     calcularTotales()
-console.log(precios);
 };
 
 // Cálculo de valores finales de la compra
@@ -205,8 +205,7 @@ function calcularTotales() {
             <div class="preciosCarrito">Total a pagar
             <span>$ ${totalCarrito}</span>
             </div>`;           
-   
-    
+       
      calculoFinal.innerHTML = valoresFinales;
     actualizarCanasta();     
 }
@@ -226,14 +225,15 @@ function removePdto(index) {
     precios.filter(index => {
         index !== precioRemove;
         console.log(precios);
+        calcularTotales()
     })
 
     if (dataCanasta == 0) {
         precios.length = 0;
     }
-    console.log(precios);
-    actualizarCanasta();  
-    calcularTotales()
+
+    actualizarCanasta();
+    calcularTotales()  
 };    
 
 // Vaciar carro de compras
@@ -241,9 +241,10 @@ function vaciarCarrito() {
     if (dataCanasta.length > 0) {
             dataCanasta.length = 0;
             precios.length = 0;
+
+            actualizarCanasta(); 
+            calcularTotales() 
     }
-actualizarCanasta(); 
-calcularTotales()    
 };
         
 
