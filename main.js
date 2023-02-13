@@ -79,7 +79,6 @@ var listaProductos = "";
 cardProductos.classList.add("d-flex", "wrap", "p-2");
 
 function getProductos() {
-
     productos.map((d, index) => {
         listaProductos = listaProductos +
             `<div key=${index} class="row row-cols-2 row-cols-md-3 g-4 cardPdto">
@@ -111,6 +110,7 @@ function getProductos() {
 function modificarCantidad(btn, Id) {
     var cantidadCarrito = Number(document.querySelector(`#cantX_${Id}`).textContent);
     cantidadCarrito = cantidadCarrito + btn;
+    console.log(btn)
 
     if (cantidadCarrito > 0) {
         document.querySelector(`#cantX_${Id}`).textContent = cantidadCarrito;
@@ -118,19 +118,6 @@ function modificarCantidad(btn, Id) {
         cantidadCarrito = 1;
     }
 };
-
-// Función para modificar cantidad en canasta de compras
-
-function variarCantidad(btnCanasta, Id) {
-    let cantidadCanasta = Number(document.querySelector(`#cantCanasta_${Id}`).textContent);
-    let cantidadActual = ParseInt(cantidadCanasta.textContent);
-    let nuevaCantidad = cantidadActual + btnCanasta;
-
-    if (nuevaCantidad >= 1) {
-       cantidadActual.innerHTML = nuevaCantidad; 
-    } 
-};
-
 
 // Agregar cantidad productos al carro.
 var dataCanasta = [];
@@ -143,7 +130,6 @@ function actualizarCanasta() {
     dataCanasta.map((d, Id) => {
         var cantidad = Number(document.querySelector(`#cantX_${d.Id}`).textContent);
         
-
         renderCarrito = renderCarrito +
             `<tr "class="filaTabla" onchange="calcularTotales()">
                     <td>Código ${d.Id}</td>
@@ -151,9 +137,9 @@ function actualizarCanasta() {
                     <td>${d.nombre}</td>
                     <td id="precioPdto_${d.Id}">$ ${d.precio}</td>
                     <td><div class="d-flex column justify-content-center" id="tarjeta-modificarCarro">
-                        <button class="btnAddCarro" value=btnCanasta id="btnCarro_${d.Id} onclick="variarCantidad(-1, ${d.Id})">-</button>
+                        <button class="btnAddCarro" value=btn id="btnCarro_${d.Id} onclick="variarCantidad(-1, ${d.Id})">-</button>
                         <p class="mb-0 mt-0 align-self:center" id="cantCanasta_${d.Id}">${cantidad}</p>
-                        <button class="btnAddCarro" value=btnCanasta id="btnCarro_${d.Id} onclick="variarCantidad(1, ${d.Id})">+</button></td>
+                        <button class="btnAddCarro" value=btn id="btnCarro onclick="variarCantidad(1, ${d.Id})">+</button></td>
                     <td class="subtotalPdto_${d.Id}"> ${d.precio * cantidad}</td>
                     <td><a></a><img src="./assets/img/trash-svgrepo-com.svg" alt="" onclick="removePdto(${Id})"></a></td>
                 </tr>`;       
@@ -161,14 +147,22 @@ function actualizarCanasta() {
     datosProductosAComprar.innerHTML = renderCarrito;    
 };
 
+function variarCantidad(btn, Id, cantidad) {
+    let cantidadCanasta = Number(document.querySelector(`#cantCanasta_${Id}`).textContent);
+    console.log(document.querySelector(`#cantCanasta_${Id}`).textContent)
+    let cantidadActual = parseInt(cantidadCanasta);
+    let nuevaCantidad = cantidad + btn;
+    
+    if (nuevaCantidad >= 1) {
+        document.querySelector(`#cantCanasta_${Id}`).textContent = nuevaCantidad; 
+    } 
+};
 
 function agregarProducto(Id) {
     let cant = Number(document.querySelector(`#cantX_${Id}`).textContent);
-    console.log(cant);
     let pdto = productos.find(d => d.Id == Id)
     let nuevoPdto = pdto;
     precios.push(pdto.precio * cant);
-    console.log(precios);
     nuevoPdto = dataCanasta.push(pdto);
     actualizarCanasta();
     calcularTotales()
@@ -184,8 +178,9 @@ function calcularTotales() {
     var iva = 0; 
     
     let totalCarrito = 0;
-    if (dataCanasta == 0) {
+    if (dataCanasta.length == 0) {
        totalCarrito = 0;
+       subtotalNeto = 0;
        precios = [];
     } else {
         precios.forEach(d => 
@@ -207,6 +202,9 @@ function calcularTotales() {
             </div>`;           
        
      calculoFinal.innerHTML = valoresFinales;
+     calculoFinal.innerHTML = valoresFinales;
+    actualizarCanasta();     
+     calculoFinal.innerHTML = valoresFinales;   
     actualizarCanasta();     
 }
 };
@@ -218,17 +216,16 @@ function removePdto(index) {
     
     dataCanasta.filter(d => {
         d.index !== pdtoRemove; 
+        console.log(dataCanasta)
     })
 
     precios.find(d => d.index == index);
     let precioRemove = precios.splice(index,1);
     precios.filter(index => {
         index !== precioRemove;
-        console.log(precios);
-        calcularTotales()
-    })
-
-    if (dataCanasta == 0) {
+    })  
+        
+    if (dataCanasta.length == 0) {
         precios.length = 0;
     }
 
@@ -244,9 +241,10 @@ function vaciarCarrito() {
 
             actualizarCanasta(); 
             calcularTotales() 
-    }
+        } 
 };
         
+
 
        
     
